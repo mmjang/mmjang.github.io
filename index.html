@@ -5,19 +5,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
   <title>🎨的纪念站</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">   
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
 <link rel="stylesheet" href="/style.css">
 
 <body>
   <h1>颜璐和廖彬彬已经在一起{0}天</h1>
+  <div class="block">璐</div>
   <img src='yanliao.jpg'/>
   <script>
-    const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+    const oneDay = 24 * 60 * 60 * 1000; 
     const firstDate = new Date(2019, 7, 9);
     const secondDate = new Date();
     const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
     const title = document.querySelector('h1');
     title.innerHTML = title.innerHTML.replace(/\{0\}/, diffDays);
+
+    const block = document.querySelector('.block');
+    const move = (event)=>{
+      let duration = 100;
+      let f = ()=>{
+        if(Math.abs(event.clientY - block.offsetTop) > 10) {
+          setTimeout(
+            ()=>{
+              let d = 0;
+              if(event.clientY - block.offsetTop > 0) {
+                d = 5;
+              } else {
+                d = -5;
+              }
+              let top = block.offsetTop;
+              block.style.top = (top + d) + 'px';
+              f();
+            }, 50
+          );
+        }
+      };
+      f();
+    }
+    document.body.addEventListener('click', 
+      move
+    );
   </script>
 </body>
 </html>
